@@ -1,0 +1,55 @@
+---
+- name: Update all the servers
+  hosts: all 
+  become: yes
+  tasks:
+  - name: Install php
+    yum: 
+      name: php
+      state: present
+    when: ansible_distribution == "CentOS"
+
+  - name: Install php
+    apt:
+      name: php
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Update the page
+    copy:
+      src: date.php
+      dest: /var/www/html/date.php
+    when: ansible_distribution == "CentOS"
+
+  - name: Update the page
+    copy:
+      src: date.php
+      dest: /var/www/html/date.php
+    when: ansible_distribution == "Ubuntu"
+
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted
+    when: ansible_distribution == "CentOS"
+
+  - name: restart apache2
+    service:
+      name: apache2
+      state: restarted
+    when: ansible_distribution == "Ubuntu"
+
+  - name: SElinux
+    selinux:
+      policy: targeted
+      state: permissive
+    when: ansible_distribution == "CentOS"
+
+  - name: SElinux
+    selinux:
+      policy: targeted
+      state: permissive
+    when: ansible_distribution == "Ubuntu"
+
+
+...

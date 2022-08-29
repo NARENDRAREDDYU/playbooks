@@ -1,0 +1,14 @@
+---
+- name: Update all server
+  hosts: all
+  tasks:
+  - name: create a directory
+    file:
+      path: /home/centos/common_dir
+      state: directory
+    when: ansible_distribution == "CentOS"
+  - name: create a directory
+    file:
+      path: /home/ubuntu/common_dir
+      state: directory
+    when: ansible_distribution == "Ubuntu"    #ansible_distribution form ansible setup module

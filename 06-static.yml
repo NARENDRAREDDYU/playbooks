@@ -1,0 +1,40 @@
+---
+- name: Update server 
+  hosts: all
+  become: yes
+  tasks:
+  - name: Copy the command
+    copy:
+      src: static.html
+      dest: /var/www/html/static.html
+...
+
+---
+- name: Update all servers 
+  hosts: centos
+  become: yes 
+  vars:
+    httpd_port: 9090
+  tasks:
+  - name: Change the port
+    template:
+      src: httpd.j2
+      dest: /etc/httpd/conf/httpd.conf
+
+
+  - name: Restart the WebServer
+    service:
+      name: httpd
+      state: restarted
+
+...
+---
+- name: Update all servers
+  hosts: all servers
+  become: yes
+  tasks:
+  - name: dynamic html
+    template:
+      src: dynamic.j2
+      dest: /var/www/html/dynamic.html
+...

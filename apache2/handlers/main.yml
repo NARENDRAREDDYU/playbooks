@@ -1,0 +1,9 @@
+---
+
+  - name: restart httpd 
+    service:
+      name: httpd
+      state: restarted
+    when: ansible_distribution == "CentOS" or ansible_distribution == "Amazon"
+
+...

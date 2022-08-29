@@ -1,0 +1,12 @@
+---
+- name: Update all servers
+  hosts: all servers
+  become: yes
+  vars:
+    host_address: NARENDRA_WEBSERVER
+  tasks:
+  - name: dynamic html
+    template:
+      src: vars.j2
+      dest: /var/www/html/dynamic.html
+...

@@ -1,0 +1,19 @@
+---
+- name: Update all servers 
+  hosts: centos
+  become: yes 
+  vars:
+    httpd_port: 9090
+  tasks:
+  - name: Change the port
+    template:
+      src: httpd.j2
+      dest: /etc/httpd/conf/httpd.conf
+
+
+  - name: Restart the WebServer
+    service:
+      name: httpd
+      state: restarted
+
+...

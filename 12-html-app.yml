@@ -1,0 +1,10 @@
+---
+- name: update all server
+  hosts: centos
+  become: yes
+  tasks:
+  roles:
+  - apache2
+  - html
+...
+

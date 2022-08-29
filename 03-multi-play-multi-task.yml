@@ -1,0 +1,31 @@
+---
+- name: Update centosserver
+  hosts: centos
+  tasks:
+  - name: create a directory
+    file:
+      path: /home/centos/centos_dir
+      state: directory
+    when: ansible_distribution == "CentOS"
+  - name: Download file in the important file
+    get_url:
+      url: https://filesamples.com/samples/document/txt/sample3.txt
+      dest: /home/centos/centos_dir
+    when: ansible_distribution == "CentOS"                         # this is a mutli task with mutli platform Ubuntu & CentOS
+
+
+- name: Update Ubuntu Server
+  hosts: ubuntu
+  tasks:
+  - name: create a directory
+    file:
+      path: /home/ubuntu/ubuntu_dir
+      state: directory
+    when: ansible_distribution == "Ubuntu"    #ansible_distribution form ansible setup module
+
+  - name: download file
+    get_url:
+      url: https://filesamples.com/samples/document/txt/sample3.txt
+      dest: /home/ubuntu/ubuntu_dir
+    when: ansible_distribution == "Ubuntu"    # ansible_distribution form ansible setup module
+...

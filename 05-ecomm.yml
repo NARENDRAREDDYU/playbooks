@@ -1,0 +1,10 @@
+---
+- name: update all server
+  hosts: all
+  become: yes
+  tasks:
+  roles:
+    - apache
+    - html
+...
+

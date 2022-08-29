@@ -1,0 +1,43 @@
+---
+- name: Update Webserver in all hosts
+  hosts: all
+  become: yes
+  tasks:
+  - name: Install httpd server on CentOS
+    yum:
+      name: httpd
+      state: present
+    when: ansible_distribution == "CentOS"
+
+  - name: start the httpd service
+    service:
+      name: httpd
+      state: started
+    when: ansible_distribution == "CentOS"
+  
+  - name: enable the httpd service
+    service:
+      name: httpd
+      enabled: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: Install apache2 on Ubuntu server
+    apt:
+      name: apache2
+      state: present
+    when: ansible_distribution == "Ubuntu"
+  
+  - name: Start the apache2 on Ubuntu Server
+    service:
+      name: apache2
+      state: started
+    when: ansible_distribution == "Ubuntu"
+
+  - name: enable the apache2 server
+    service:
+      name: apache2
+      enabled: yes
+    when: ansible_distribution == "Ubuntu"
+
+...
+

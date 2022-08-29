@@ -1,0 +1,9 @@
+---
+- name: Update all server 
+  hosts: all
+  tasks: 
+  - name: create a directory      # create a directory 
+    file :                        # using file module
+      path: /home/centos/aws_dir  # aws is directory name
+      state: directory
+...
